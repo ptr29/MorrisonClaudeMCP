@@ -1,0 +1,103 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_call:
+    outputs:
+      version:
+        description: "Released version tag (e.g. v1.0.1)"
+        value: ${{ jobs.release.outputs.version }}
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: "github.event_name == 'workflow_call' || !contains(github.event.head_commit.message, 'chore: release')"
+    outputs:
+      version: ${{ steps.version_output.outputs.version }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Release --no-restore
+
+      - name: Test
+        run: dotnet test --no-build -c Release
+
+      - name: Sync latest from main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+
+      - name: Bump patch version
+        run: |
+          CURRENT=$(grep -oP '(?<=<Version>)[^<]+' Directory.Build.props)
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          NEW_PATCH=$((PATCH + 1))
+          NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+          sed -i "s|<Version>${CURRENT}</Version>|<Version>${NEW_VERSION}</Version>|" Directory.Build.props
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+
+      - name: Update CHANGELOG
+        run: |
+          VERSION=$NEW_VERSION
+          PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -n "$PREV_TAG" ]; then
+            COMMITS=$(git log ${PREV_TAG}..HEAD --pretty=format:"- %s" --no-merges | grep -v "^- chore: release" || true)
+          else
+            COMMITS=$(git log --pretty=format:"- %s" --no-merges -10 | grep -v "^- chore: release" || true)
+          fi
+          TMPFILE=$(mktemp)
+          echo "# Changelog" > "$TMPFILE"
+          echo "" >> "$TMPFILE"
+          echo "## ${VERSION}" >> "$TMPFILE"
+          echo "" >> "$TMPFILE"
+          echo "$COMMITS" >> "$TMPFILE"
+          echo "" >> "$TMPFILE"
+          if [ -f CHANGELOG.md ]; then
+            tail -n +2 CHANGELOG.md >> "$TMPFILE"
+          fi
+          mv "$TMPFILE" CHANGELOG.md
+
+      - name: Commit version bump and tag
+        run: |
+          VERSION=$NEW_VERSION
+          git add Directory.Build.props CHANGELOG.md
+          git commit -m "chore: release v${VERSION}"
+          git tag "v${VERSION}"
+          git pull --rebase
+          git push
+          git push --tags
+
+      - name: Create GitHub Release
+        run: |
+          VERSION=$NEW_VERSION
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
+          if [ -n "$PREV_TAG" ]; then
+            NOTES=$(git log ${PREV_TAG}..v${VERSION} --pretty=format:"- %s" --no-merges | grep -v "^- chore: release" || true)
+          else
+            NOTES="Initial release"
+          fi
+          gh release create "v${VERSION}" --title "v${VERSION}" --notes "$NOTES"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Export version output
+        id: version_output
+        run: echo "version=v${NEW_VERSION}" >> $GITHUB_OUTPUT
