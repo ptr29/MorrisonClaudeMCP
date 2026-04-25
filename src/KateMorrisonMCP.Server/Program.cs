@@ -129,7 +129,7 @@ logger.LogInformation("Transport mode: {Mode}", useHttpMode ? "HTTP/SSE" : "stdi
 if (useHttpMode)
 {
     logger.LogInformation("MCP auth: {Mode}", authDisabled ? "DISABLED" : "Bearer token required");
-    logger.LogInformation("Health auth: {Mode}", !string.IsNullOrEmpty(mcpApiKey) ? "X-API-Key required" : "unauthenticated");
+    logger.LogInformation("Health auth: {Mode}", !string.IsNullOrEmpty(mcpApiKey) ? "API key required" : "unauthenticated");
 }
 
 // Start server based on mode
