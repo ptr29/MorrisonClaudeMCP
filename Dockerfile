@@ -79,7 +79,9 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 # Optional: Set MCP_PORT to enable HTTP/SSE mode (default is stdio)
 # ENV MCP_PORT=8080
-# ENV MCP_API_KEY=your-api-key-here
+# ENV OAUTH_TOKEN=your-oauth-token-here
+# ENV AUTH_DISABLED=false
+# ENV MCP_API_KEY=your-api-key-here  # X-API-Key for /health endpoint only
 
 # Set permissions
 RUN chmod -R 755 /app && \

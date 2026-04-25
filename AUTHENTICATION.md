@@ -2,8 +2,8 @@
 
 The Morrison MCP server supports two transport modes:
 
-1. **Stdio Mode** (default) - No authentication, for local Claude Desktop integration
-2. **HTTP/SSE Mode** - With X-API-Key authentication, for containerized deployments
+1. **Stdio Mode** (default) — No authentication, for local Claude Desktop integration
+2. **HTTP/SSE Mode** — With dual authentication for containerized deployments
 
 ## Transport Modes
 
@@ -11,7 +11,7 @@ The Morrison MCP server supports two transport modes:
 
 Default mode when `MCP_PORT` is not set. Used for local Claude Desktop integration via stdio.
 
-**No authentication required** - security by process isolation.
+**No authentication required** — security by process isolation.
 
 ```bash
 # Run locally
@@ -23,62 +23,56 @@ docker compose up mcp-server
 
 ### HTTP/SSE Mode (Container)
 
-Enabled when `MCP_PORT` environment variable is set. Provides HTTP endpoints with optional authentication.
+Enabled when `MCP_PORT` environment variable is set. Uses two authentication schemes:
 
-**Authentication via X-API-Key header** when `MCP_API_KEY` is set.
+| Endpoint | Scheme | Header |
+|---|---|---|
+| `/sse` (MCP protocol) | OAuth Bearer | `Authorization: Bearer <token>` |
+| `/` (server info) | OAuth Bearer | `Authorization: Bearer <token>` |
+| `/health` (health check) | X-API-Key | `X-API-Key: <key>` |
+| `/.well-known/oauth-protected-resource` | None (public) | — |
 
-```bash
-# Set environment variables
-export MCP_PORT=8080
-export MCP_API_KEY=my-secret-key-12345
+## Environment Variables
 
-# Run server
-dotnet run
-```
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `MCP_PORT` | No | none | Port to listen on (enables HTTP mode) |
+| `OAUTH_TOKEN` | Yes* | none | Bearer token for `/sse` and `/` |
+| `OAUTH_RESOURCE_URL` | No | `https://mcp-morrison.thresholdwater.com` | Resource URL for OAuth metadata |
+| `AUTH_DISABLED` | No | `false` | Set to `true` to disable Bearer auth |
+| `MCP_API_KEY` | No | none | X-API-Key for `/health` endpoint |
+| `DATABASE_PATH` | No | `./data/canonical_facts.db` | Path to SQLite database |
 
-## Container Deployment with Authentication
+*Required in HTTP mode unless `AUTH_DISABLED=true`
+
+## Container Deployment
 
 ### Docker Compose (Recommended)
-
-Use the HTTP profile:
 
 ```bash
 # Start server in HTTP mode
 docker compose --profile http up mcp-server-http
 ```
 
-**Important:** Change the default API key in `docker-compose.yml`:
+**Important:** Change the default tokens in `docker-compose.yml`:
 
 ```yaml
 environment:
   - MCP_PORT=8080
-  - MCP_API_KEY=your-secure-random-api-key-here  # CHANGE THIS!
+  - OAUTH_TOKEN=your-secure-oauth-token-here   # CHANGE THIS!
+  - MCP_API_KEY=your-secure-api-key-here       # CHANGE THIS!
 ```
 
-### Docker Run
+### Generate Secure Tokens
 
 ```bash
-docker run -d \
-  -p 8080:8080 \
-  -v $(pwd)/data:/app/data \
-  -e MCP_PORT=8080 \
-  -e MCP_API_KEY=your-secure-api-key \
-  morrison-mcp:latest
-```
-
-### Generate Secure API Key
-
-```bash
-# Linux/macOS - generate random 32-character key
+# Generate a random 32-byte base64 token
 openssl rand -base64 32
-
-# Or use a UUID
-uuidgen
 ```
 
 ## Using HTTP Mode with Claude Desktop
 
-Claude Desktop can connect to remote MCP servers via HTTP. Add to your Claude Desktop config:
+Add to your Claude Desktop config:
 
 **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 
@@ -88,7 +82,7 @@ Claude Desktop can connect to remote MCP servers via HTTP. Add to your Claude De
     "kate-morrison-facts-remote": {
       "url": "http://localhost:8080/sse",
       "headers": {
-        "X-API-Key": "your-secure-api-key"
+        "Authorization": "Bearer your-oauth-token"
       },
       "transport": "http"
     }
@@ -98,162 +92,62 @@ Claude Desktop can connect to remote MCP servers via HTTP. Add to your Claude De
 
 ## API Endpoints
 
-### POST /sse
+### POST /sse — MCP Protocol (Bearer required)
 
-Main MCP endpoint for sending JSON-RPC requests.
-
-**Authentication:** X-API-Key header required (when `MCP_API_KEY` is set)
-
-**Request:**
 ```bash
+# Unauthorized (no token)
 curl -X POST http://localhost:8080/sse \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: your-secure-api-key" \
-  -d '{"jsonrpc":"2.0","method":"initialize","params":{"protocolVersion":"2024-11-05"},"id":1}'
+  -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
+# → 401 Unauthorized, WWW-Authenticate: Bearer realm="MCP", resource_metadata="..."
+
+# Authorized
+curl -X POST http://localhost:8080/sse \
+  -H "Authorization: Bearer your-oauth-token" \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
 ```
 
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "protocolVersion": "2024-11-05",
-    "capabilities": {
-      "tools": {}
-    },
-    "serverInfo": {
-      "name": "kate-morrison-canonical-facts",
-      "version": "1.0.0"
-    }
-  },
-  "id": 1
-}
-```
-
-### GET /health
-
-Health check endpoint (no authentication required).
+### GET /health — Health Check (X-API-Key required)
 
 ```bash
+# Unauthorized (no key)
 curl http://localhost:8080/health
+# → 401 Unauthorized
+
+# Authorized
+curl http://localhost:8080/health \
+  -H "X-API-Key: your-api-key"
 ```
 
-**Response:**
-```json
-{
-  "status": "healthy",
-  "server": "kate-morrison-canonical-facts",
-  "version": "1.0.0",
-  "transport": "http/sse",
-  "authEnabled": true
-}
-```
-
-### GET /
-
-Server information (no authentication required).
+### GET /.well-known/oauth-protected-resource — Public
 
 ```bash
-curl http://localhost:8080/
+curl http://localhost:8080/.well-known/oauth-protected-resource
+```
+
+Response:
+```json
+{
+  "resource": "https://mcp-morrison.thresholdwater.com",
+  "authorization_servers": ["https://auth.thresholdwater.com"]
+}
 ```
 
 ## Security Considerations
 
-### For Local Development (Stdio Mode)
-- No authentication needed
-- Server only accessible to spawning process
-- Claude Desktop spawns server as subprocess
-
-### For Container Deployment (HTTP Mode)
-- **Always set MCP_API_KEY** in production
-- Use strong, random API keys (32+ characters)
-- Rotate keys regularly
-- Use environment variables, never hardcode keys
-- Consider using HTTPS/TLS reverse proxy (nginx, Caddy) for production
-
-### Example Production Setup
-
-Use a reverse proxy with TLS:
-
-```yaml
-# docker-compose.yml
-services:
-  mcp-server-http:
-    # ... MCP server config
-    expose:
-      - "8080"
-    networks:
-      - internal
-
-  caddy:
-    image: caddy:latest
-    ports:
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-    networks:
-      - internal
-
-networks:
-  internal:
-```
-
-```
-# Caddyfile
-mcp.yourdomain.com {
-  reverse_proxy mcp-server-http:8080
-}
-```
-
-## Environment Variables Reference
-
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `MCP_PORT` | No | none | Port to listen on (enables HTTP mode) |
-| `MCP_API_KEY` | No | none | API key for X-API-Key authentication |
-| `DATABASE_PATH` | No | `./data/canonical_facts.db` | Path to SQLite database |
-
-## Testing Authentication
-
-### Valid Request (Authenticated)
-```bash
-curl -X POST http://localhost:8080/sse \
-  -H "X-API-Key: your-secure-api-key" \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
-```
-
-### Invalid Request (Unauthorized)
-```bash
-curl -X POST http://localhost:8080/sse \
-  -H "X-API-Key: wrong-key" \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
-```
-
-**Response:**
-```
-HTTP/1.1 401 Unauthorized
-{
-  "error": "Unauthorized - Invalid or missing X-API-Key header"
-}
-```
+- **Always set `OAUTH_TOKEN`** — the server refuses to start in HTTP mode without it (unless `AUTH_DISABLED=true`)
+- **Always set `MCP_API_KEY`** — without it, `/health` is publicly accessible
+- Use strong, random tokens (32+ bytes)
+- Use HTTPS/TLS reverse proxy (nginx, Caddy) in production
 
 ## Troubleshooting
 
-### Server starts but Claude Desktop can't connect
-- Check firewall settings
-- Verify port is accessible: `curl http://localhost:8080/health`
-- Check API key matches in both server and Claude config
-- Check server logs for authentication failures
+### Server won't start — "OAUTH_TOKEN must be set"
+Set `OAUTH_TOKEN` in your environment, or set `AUTH_DISABLED=true` to disable Bearer auth.
 
-### 401 Unauthorized errors
-- Verify X-API-Key header is set correctly
-- Check for typos in API key
-- Ensure no extra whitespace in key
-- Verify environment variable is set: `docker exec container env | grep MCP_API_KEY`
+### 401 on /sse
+Verify `Authorization: Bearer <token>` header is set and the token matches `OAUTH_TOKEN`.
 
-### Server won't start in HTTP mode
-- Check port is not already in use: `lsof -i :8080`
-- Verify MCP_PORT is a valid number
-- Check container logs: `docker logs morrison-mcp-server-http`
+### 401 on /health
+Verify `X-API-Key: <key>` header is set and the key matches `MCP_API_KEY`.

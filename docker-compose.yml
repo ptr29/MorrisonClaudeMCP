@@ -87,7 +87,8 @@ services:
       - Logging__LogLevel__Microsoft=Warning
       # Enable HTTP/SSE mode
       - MCP_PORT=8080
-      # IMPORTANT: Change this to a secure random value in production!
+      # IMPORTANT: Change these to secure random values in production!
+      - OAUTH_TOKEN=your-secure-oauth-token-change-me
       - MCP_API_KEY=your-secure-api-key-change-me
 
     # Expose port for HTTP access
