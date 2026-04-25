@@ -1,0 +1,45 @@
+# .NET build artifacts
+bin/
+obj/
+publish/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+# .NET test results
+TestResults/
+coverage/
+*.cobertura.xml
+*.trx
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.AppleDouble
+.LSOverride
+
+# Environment / secrets
+.env
+*.env
+appsettings.Production.json
+appsettings.Staging.json
+
+# Local docker overrides
+docker-compose.override.yml
