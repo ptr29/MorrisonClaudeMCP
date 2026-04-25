@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4
+
+- fix: lowercase GHCR image name in package workflow
+
+
 ## 1.0.3
 
 No user-facing changes.
