@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2
+
+- fix: update health auth log message wording
+- docs: update auth config for OAuth Bearer + X-API-Key dual scheme
+- feat: replace X-API-Key with OAuth Bearer auth for MCP endpoints
+
+
 ## 1.0.1
 
 - feat: initial MorrisonClaudeMCP MCP server
