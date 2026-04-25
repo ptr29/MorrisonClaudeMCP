@@ -1,0 +1,52 @@
+name: Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing release tag to build from (e.g. v1.0.2). Leave blank to create a new release."
+        required: false
+        default: ""
+
+jobs:
+  release:
+    if: inputs.tag == ''
+    uses: ./.github/workflows/release.yml
+    secrets: inherit
+    permissions:
+      contents: write
+
+  docker:
+    needs: [release]
+    if: always() && (needs.release.result == 'success' || needs.release.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Resolve image tag
+        id: resolve
+        run: |
+          TAG=$(echo "${{ inputs.tag }}" | xargs)
+          if [ -z "$TAG" ]; then
+            TAG="${{ needs.release.outputs.version }}"
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.resolve.outputs.tag }}
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ steps.resolve.outputs.tag }}
