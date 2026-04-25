@@ -25,7 +25,19 @@ databasePath = Path.GetFullPath(databasePath);
 // Check for HTTP/SSE mode configuration
 var mcpPort = Environment.GetEnvironmentVariable("MCP_PORT");
 var mcpApiKey = Environment.GetEnvironmentVariable("MCP_API_KEY");
+var oauthToken = Environment.GetEnvironmentVariable("OAUTH_TOKEN");
+var oauthResourceUrl = Environment.GetEnvironmentVariable("OAUTH_RESOURCE_URL");
+var authDisabled = Environment.GetEnvironmentVariable("AUTH_DISABLED") == "true";
 var useHttpMode = !string.IsNullOrEmpty(mcpPort);
+
+// Fail fast if OAuth token is not configured in HTTP mode
+if (useHttpMode && !authDisabled && string.IsNullOrWhiteSpace(oauthToken))
+{
+    Console.Error.WriteLine(
+        "[ERROR] OAUTH_TOKEN must be set when auth is enabled. " +
+        "Set AUTH_DISABLED=true to disable authentication.");
+    return 1;
+}
 
 // Setup dependency injection
 var services = new ServiceCollection();
@@ -95,7 +107,10 @@ if (useHttpMode)
         sp.GetRequiredService<ILogger<McpHttpServer>>(),
         sp.GetRequiredService<McpRequestProcessor>(),
         int.Parse(mcpPort!),
-        mcpApiKey));
+        mcpApiKey,
+        oauthToken,
+        oauthResourceUrl,
+        authDisabled));
 }
 else
 {
@@ -111,13 +126,10 @@ logger.LogInformation("MCP Canonical Facts Server starting...");
 logger.LogInformation("Database path: {DatabasePath}", databasePath);
 logger.LogInformation("Transport mode: {Mode}", useHttpMode ? "HTTP/SSE" : "stdio");
 
-if (useHttpMode && !string.IsNullOrEmpty(mcpApiKey))
+if (useHttpMode)
 {
-    logger.LogInformation("Authentication: X-API-Key required");
-}
-else if (useHttpMode)
-{
-    logger.LogWarning("Authentication: DISABLED (MCP_API_KEY not set)");
+    logger.LogInformation("MCP auth: {Mode}", authDisabled ? "DISABLED" : "Bearer token required");
+    logger.LogInformation("Health auth: {Mode}", !string.IsNullOrEmpty(mcpApiKey) ? "X-API-Key required" : "unauthenticated");
 }
 
 // Start server based on mode
