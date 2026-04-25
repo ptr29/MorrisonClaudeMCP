@@ -1,0 +1,213 @@
+-- ============================================================================
+-- Morrison Claude MCP - Database Data Load Script
+-- ============================================================================
+-- This script contains all data from the canonical_facts.db database
+-- Generated: 2026-01-23
+--
+-- Database Summary:
+--   - 43 Characters
+--   - 12 Locations
+--   - 14 Location Rooms
+--   - 12 Timeline Events
+--   - 2 Event Participants
+--   - 17 Relationships
+--   - 13 Possessions
+--   - 5 Schedules
+--   - 9 Character Negatives
+--   - 8 Education Records
+--   - 1 Last Run State
+-- ============================================================================
+
+-- Disable foreign key checks during import
+PRAGMA foreign_keys = OFF;
+
+BEGIN TRANSACTION;
+
+-- ============================================================================
+-- CHARACTERS (43 records)
+-- ============================================================================
+INSERT INTO characters VALUES(1,'Katherine Marie Morrison','Kate',31,'1993-03-15',NULL,66,128,'slim','blonde','shoulder-length','green','["shoulder-length hair", "runner build", "engaging smile"]','Research Scientist','Northwestern University',NULL,NULL,NULL,NULL,NULL,NULL,'primary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(2,'Paul Rogala','Paul',34,'1990-07-12',NULL,70,NULL,'average','dark brown',NULL,'brown','["tech professional appearance", "Mini Cooper enthusiast"]','Software Engineering Manager','Confluent','Engineering Manager',NULL,NULL,NULL,NULL,NULL,'primary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(3,'Emma Hartwell','Emma',28,'1997-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Former teacher, deceased 2020',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'secondary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(4,'Patrick O''Brien','Patrick',60,'1965-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Chicago Fire Department Captain (retired)',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'secondary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(5,'Maureen Murphy O''Brien','Maureen',58,'1967-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Elementary school teacher (Oak Park)',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'secondary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(6,'Ashley O''Brien','Ashley',28,'1997-11-15',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Account Executive at marketing agency',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'secondary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(7,'Marcus Chen','Marcus',36,'1989-06-20',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Investment Banker',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'secondary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(8,'Alice Thomas','Alice',31,'1994-03-08',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Account Director at DDB Chicago',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'secondary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(9,'Mike Morrison','Mike',29,'1996-07-12',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Marketing Manager at TechFlow Solutions',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'secondary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(10,'Charles Harrison Hartwell III','Charles',62,'1963-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Managing Partner, corporate litigation law firm',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'supporting',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(11,'Victoria Lancaster Hartwell','Victoria',59,'1966-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Philanthropist, charity board member',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'supporting',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(12,'Caroline Victoria Hartwell-Montgomery','Caroline',31,'1994-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Homemaker, Junior League, charity boards',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'supporting',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(13,'Stratton Montgomery III','Stratton',33,'1992-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Investment banker',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'supporting',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(14,'Daniel Francis O''Brien','Danny',63,'1962-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Retired CPD Sergeant',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'supporting',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(15,'Joan Murphy O''Brien','Joan',62,'1963-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Retired elementary school principal',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'supporting',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(16,'Sean Michael O''Brien','Sean',56,'1969-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Union carpenter, Local 1 Chicago',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'supporting',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(17,'Maria Gonzalez O''Brien','Maria',54,'1971-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dental hygienist',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'supporting',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(18,'Meghan O''Brien Callahan','Meghan',38,'1987-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'High school English teacher',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(19,'Daniel O''Brien Jr.','DJ',35,'1990-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Chicago firefighter',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(20,'Kevin O''Brien','Kevin',32,'1993-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Accountant',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(21,'Erin O''Brien','Erin',29,'1996-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Nurse at Northwestern Memorial',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(22,'Patrick O''Brien Jr.','Patrick Jr.',31,'1994-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Electrician',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(23,'Grace O''Brien Martinez','Grace',28,'1997-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Social worker at DCFS',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(24,'Michael O''Brien','Mikey',25,'2000-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Medical student, Loyola Stritch (3rd year)',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(25,'Ana O''Brien','Ana',22,'2003-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Marketing (entry-level)',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(26,'Marie Catherine Murphy Brennan','Marie',55,'1970-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Nurse Practitioner at Oak Park clinic',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(27,'James Brennan','James',57,'1968-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'High school history teacher at Oak Park-River Forest HS',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(28,'Sarah Brennan','Sarah',29,'1996-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Elementary school teacher',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(29,'Thomas Brennan','Tom',27,'1998-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Software engineer',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(30,'Katie Brennan','Katie',24,'2001-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Social worker (starting career)',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(31,'Dr. Patricia Chen','Patricia',46,'1979-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Associate Professor, Civil & Environmental Engineering, Northwestern',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'secondary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(32,'Dr. Michael Brennan','Michael Brennan',58,'1967-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Professor, Civil & Environmental Engineering, Northwestern',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(33,'Dr. Sarah Kline','Sarah Kline',37,'1988-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Associate Professor, Chemistry, Northwestern',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(34,'Dr. James Rodriguez','James Rodriguez',41,'1984-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Associate Professor, Civil & Environmental Engineering, Northwestern',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(35,'Dr. Lisa Wu','Lisa Wu',55,'1970-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Senior Research Scientist, Illinois State Water Survey',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(36,'Dr. David Chen','David Chen',32,'1993-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Postdoctoral Researcher, Chen Lab, Northwestern',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(37,'Jessica Okonkwo','Jessica',28,'1997-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'PhD student (Year 6), Chen Lab, Northwestern',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(38,'Rashid Ahmed','Rashid',25,'2000-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'PhD student (Year 1), Chen Lab, Northwestern',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(39,'Sarah Goldstein','Sarah Goldstein',38,'1987-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Marketing executive',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(40,'Steve Thomas','Steve',34,'1991-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Business professional (client-facing, travels extensively)',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'secondary',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(41,'Ms. Rodriguez','Ms. Rodriguez',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'High school teacher (Kate''s time)',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(42,'Ahmad','Ahmad',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'PhD student (Year 5), Environmental Engineering, Northwestern',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO characters VALUES(43,'Diane','Diane',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Administrative Coordinator, Environmental Engineering Dept, Northwestern',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'minor',1,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+
+-- ============================================================================
+-- LOCATIONS (12 records)
+-- ============================================================================
+INSERT INTO locations VALUES(1,'Paul''s House','9636 N Kostner Ave','Skokie','IL','60076','residence','Mid-century brick home',2,NULL,NULL,2,'owned',NULL,NULL,'Skokie',NULL,'["Skokie Swift CTA station", "I-94 Edens Expressway", "Old Orchard Shopping Center"]',0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(2,'Hartwell Estate','Sheridan Road','Kenilworth','IL',NULL,'residential_single_family',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(3,'Caroline Hartwell-Montgomery House',NULL,'Glencoe','IL',NULL,'residential_single_family',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(4,'Alice & Steve Thomas House',NULL,'Wilmette','IL',NULL,'residential_single_family',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(5,'DDB Chicago Office',NULL,'Chicago','IL',NULL,'commercial_office',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(6,'Danny O''Brien House',NULL,'Chicago','IL',NULL,'residential_single_family',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(7,'Sean O''Brien House',NULL,'Chicago','IL',NULL,'residential_single_family',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(8,'Marie Brennan House',NULL,'Oak Park','IL',NULL,'residential_single_family',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(9,'Loyola University Chicago','1032 W Sheridan Rd','Chicago','IL',NULL,'educational_university',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(10,'New Trier High School','385 Winnetka Ave','Winnetka','IL',NULL,'educational_high_school',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(11,'Niles North High School','9800 Lawler Ave','Skokie','IL',NULL,'educational_high_school',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+INSERT INTO locations VALUES(12,'Illinois State Water Survey','2204 Griffith Dr','Champaign','IL',NULL,'research_facility',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-01-16 03:07:48','2026-01-16 03:07:48',NULL);
+
+-- ============================================================================
+-- LOCATION ROOMS (14 records)
+-- ============================================================================
+INSERT INTO location_rooms VALUES(1,1,'Entry & Foyer','Main Floor','entry',4.0,14.0,4.0,8.0,'Entry foyer','["covered front entry", "long narrow space", "stair run to lower level"]','["console table", "coat storage"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(2,1,'Living Room','Main Floor','living',14.0,14.0,11.0,8.0,'Living room','["curved bay window", "excellent natural light", "near-square proportions"]','["sofa", "chairs", "32-inch TV", "sound bar", "media furniture", "hutch"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(3,1,'Dining Room','Main Floor','dining',8.0,11.0,0.0,4.0,'Dining room','["connector between living room and kitchen"]','["6-person dining table"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(4,1,'Kitchen','Main Floor','kitchen',10.0,10.0,6.0,10.0,'Kitchen','["compact but efficient", "side door to patio", "supports serious cooking"]','["U-shaped counters", "cabinets"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(5,1,'Primary Bedroom','Main Floor','bedroom',14.0,10.0,2.0,11.0,'Primary bedroom','["away from living areas", "true retreat positioning"]','["queen bed", "nightstands", "dressers"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(6,1,'Bedroom 2','Main Floor','bedroom',11.0,11.0,1.0,3.0,'Guest bedroom','["notably square", "usable space"]','["guest bed", "furniture"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(7,1,'Bedroom 3','Main Floor','office',11.0,11.0,1.0,3.0,'Home office','["Paul''s primary workspace", "notably square", "professional setup"]','["desk", "two 32-inch monitors on arms", "multiple computers", "filing cabinet"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(8,1,'Full Bath #1','Main Floor','bathroom',7.0,5.0,3.0,2.0,'Full bathroom','["serves bedrooms and guests"]','["tub/shower", "toilet", "sink"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(9,1,'Full Bath #2','Main Floor','bathroom',7.0,4.0,3.0,10.0,'Full bathroom','["dual-bath configuration", "allows simultaneous use"]','["bathtub", "sink", "toilet"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(10,1,'Recreation Room','Lower Level','recreation',31.0,17.0,11.0,5.0,'Media and entertainment','["exceptionally large", "standout feature", "long open footprint", "can be zoned"]','["large TV", "sofas", "surround sound", "bookcases"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(11,1,'Lower-Level Bedroom','Lower Level','bedroom',11.0,15.0,7.0,9.0,'Guest bedroom / Kate''s workspace','["exceeds many main-level bedrooms", "private home office potential"]','["bed", "desk area"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(12,1,'Lower-Level Bathroom','Lower Level','bathroom',6.0,7.0,5.0,3.0,'Full bathroom','["enables independent use of lower level"]','["full bath fixtures"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(13,1,'Laundry Room','Lower Level','utility',19.0,10.0,0.0,0.0,'Laundry and utility','["unusually large", "rare and valuable", "feels like workroom not closet"]','["full-size washer", "dryer", "folding stations", "storage cabinets", "utility sink"]',NULL,0,NULL,NULL);
+INSERT INTO location_rooms VALUES(14,1,'Mechanical Room','Lower Level','utility',10.0,9.0,4.0,3.0,'Mechanical systems','["cleanly separated", "doesn''t intrude on living space"]','["HVAC", "water heater"]',NULL,0,NULL,NULL);
+
+-- ============================================================================
+-- TIMELINE EVENTS (12 records)
+-- ============================================================================
+INSERT INTO timeline_events VALUES(1,'2025-09-06','day','Kate and Paul First Meeting','Kate Morrison and Paul Rogala meet for the first time at a tech industry mixer in Chicago',NULL,'Chicago tech mixer venue','relationship',NULL,1,'kate-morrison-meeting-paul.md','2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(2,'2024-04-21','day','Kate comprehensive exam','Kate passed comprehensive exam. Three-hour oral defense. Committee of five grilled her. Patricia toughest questioner. Major milestone - now ABD.',NULL,NULL,NULL,'high',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(3,'2025-10-15','day','Kate proposal defense','Kate defended detailed research plan for remaining PhD years. Committee approved with minor revisions.',NULL,NULL,NULL,'high',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(4,'2023-12-13','day','Kate AGU 2023 poster','Kate''s first major conference. Poster presentation on microplastics and PFAS in Chicago drinking water. San Francisco, Moscone Center. Overwhelmed by scale (20,000+ attendees). Skipped AGU student mixer.',NULL,NULL,NULL,'medium',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(5,'2024-04-09','day','Kate Illinois Water Conference','Kate presented at regional conference at UIUC (her undergrad). Connected with Dr. Lisa Wu who later joined committee. Strange being back at undergrad campus.',NULL,NULL,NULL,'medium',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(6,'2024-11-18','day','Kate SETAC oral presentation','Kate''s first major oral at national conference. Portland, OR. Very nervous but presented clearly. Tough Q&A, handled well. Skipped conference banquet and EPA mixer.',NULL,NULL,NULL,'medium',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(7,'2015-10-01','day','Ashley O''Brien family dinner','Emma met O''Brien family. Patrick: "So you''re the friend Ashley won''t shut up about." Emma unused to warmth, volume, casual affection.',NULL,NULL,NULL,'low',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(8,'2016-03-15','day','Emma O''Brien spring break','Emma joined O''Brien family vacation to Gulf Shores. First family vacation she actually enjoyed. Cried on last night.',NULL,NULL,NULL,'low',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(9,'2016-01-15','day','Alice and Steve meet','Alice met Steve at bar near UIUC campus. He was Northwestern MBA student visiting friends. Started dating casually.',NULL,NULL,NULL,'medium',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(10,'2017-12-15','day','Alice and Steve engaged','Romantic proposal in Chicago with Christmas lights.',NULL,NULL,NULL,'medium',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(11,'2018-06-15','day','Alice and Steve wedding','Elegant wedding, 150 people. Beautiful day.',NULL,NULL,NULL,'high',1,NULL,'2026-01-16 03:07:48');
+INSERT INTO timeline_events VALUES(12,'2020-10-15','day','Alice and Steve move to Wilmette','Moved from Chicago to Wilmette. Needed more space with two kids. Better schools.',4,NULL,NULL,'medium',1,NULL,'2026-01-16 03:07:48');
+
+-- ============================================================================
+-- EVENT PARTICIPANTS (2 records)
+-- ============================================================================
+INSERT INTO event_participants VALUES(1,1,1,'participant');
+INSERT INTO event_participants VALUES(2,1,2,'participant');
+
+-- ============================================================================
+-- RELATIONSHIPS (17 records)
+-- ============================================================================
+INSERT INTO relationships VALUES(1,1,2,'romantic',NULL,'2025-09-06',NULL,'dating',NULL,'Kate and Paul began dating after meeting at a tech industry event',NULL);
+INSERT INTO relationships VALUES(2,3,10,'family','father_daughter',NULL,NULL,'active',NULL,'Dysfunctional relationship. Charles dismissive, controlling through money.',NULL);
+INSERT INTO relationships VALUES(3,3,11,'family','mother_daughter',NULL,NULL,'active',NULL,'Dysfunctional. Victoria confides inappropriately, uses Emma as emotional support.',NULL);
+INSERT INTO relationships VALUES(4,3,12,'family','siblings',NULL,NULL,'active',NULL,'Competitive but occasionally allied against parents.',NULL);
+INSERT INTO relationships VALUES(5,4,14,'family','siblings',NULL,NULL,'active',NULL,'Two of three O''Brien brothers. Constant banter, deep loyalty.',NULL);
+INSERT INTO relationships VALUES(6,4,16,'family','siblings',NULL,NULL,'active',NULL,'Patrick is middle brother, Sean is youngest.',NULL);
+INSERT INTO relationships VALUES(7,8,40,'romantic_partner','married','2018-06-01',NULL,'active',NULL,'Strong partnership built on mutual respect and shared goals.',NULL);
+INSERT INTO relationships VALUES(8,1,31,'professional','advisor_advisee','2022-09-06',NULL,'active',NULL,'Primary dissertation advisor. Demanding but supportive.',NULL);
+INSERT INTO relationships VALUES(9,1,32,'professional','committee_member','2024-04-21',NULL,'active',NULL,'Committee member. Practical questions about implementation.',NULL);
+INSERT INTO relationships VALUES(10,1,33,'professional','committee_member','2024-04-21',NULL,'active',NULL,'Committee member. Chemistry expertise.',NULL);
+INSERT INTO relationships VALUES(11,1,34,'professional','committee_member','2024-04-21',NULL,'active',NULL,'Committee member. Statistics expertise.',NULL);
+INSERT INTO relationships VALUES(12,1,35,'professional','committee_member','2024-04-21',NULL,'active',NULL,'External committee member.',NULL);
+INSERT INTO relationships VALUES(13,1,36,'professional','lab_colleague','2022-09-01',NULL,'active',NULL,'Postdoc who trained Kate on equipment.',NULL);
+INSERT INTO relationships VALUES(14,7,39,'ex_partner','ex_spouse','2016-10-01','2019-01-01','ended',NULL,'Met at wedding summer 2015. Divorced 2019.',NULL);
+INSERT INTO relationships VALUES(15,6,28,'family','cousins',NULL,NULL,'active',NULL,'Closest cousin to Ashley - best friend level.',NULL);
+INSERT INTO relationships VALUES(16,6,21,'family','cousins',NULL,NULL,'active',NULL,'Close cousin, similar age and personality.',NULL);
+INSERT INTO relationships VALUES(17,6,23,'family','cousins',NULL,NULL,'active',NULL,'Close cousin, same age, similar values.',NULL);
+
+-- ============================================================================
+-- POSSESSIONS (13 records)
+-- ============================================================================
+INSERT INTO possessions VALUES(1,1,'Grandmother''s Necklace','jewelry','Silver necklace inherited from Kate''s grandmother',NULL,NULL,NULL,NULL,NULL,NULL,'high','Highly sentimental family heirloom',1,NULL);
+INSERT INTO possessions VALUES(2,1,'Hario gooseneck kettle',NULL,'Paired with Chemex for pour-over coffee ritual',NULL,NULL,NULL,NULL,'Paul''s house (as of Jan 2026)',NULL,'medium','Part of sacred morning coffee ritual. Precise water temperature.',1,NULL);
+INSERT INTO possessions VALUES(3,1,'Baratza Encore grinder',NULL,'Burr coffee grinder for consistent grind',NULL,NULL,NULL,NULL,'Paul''s house (as of Jan 2026)',NULL,'medium','Grinds beans fresh each morning. Exact amount every time.',1,NULL);
+INSERT INTO possessions VALUES(4,1,'Running medals collection',NULL,'9 race medals including one marathon. Proof of finishing things.',NULL,NULL,NULL,NULL,'Kate''s apartment bedroom wall',NULL,'high','Only things on walls besides watershed map. Naperville Half (2014), Chicago Marathon (2016 - 3:54:32, cried at finish), various 10Ks and halfs.',1,NULL);
+INSERT INTO possessions VALUES(5,1,'Mike''s UIUC sweatshirt',NULL,'Navy blue, Fighting Illini, worn soft. Mike gave for 18th birthday. Small bleach stain, missing drawstring.',NULL,NULL,NULL,NULL,'Kate''s apartment bottom drawer',NULL,'high','Wore constantly freshman year. Evidence Mike once paid attention. Can''t throw away.',1,NULL);
+INSERT INTO possessions VALUES(6,1,'Nancy Drew collection',NULL,'28 books, yellowed pages. Ages 8-12. First fictional character Kate identified with.',NULL,NULL,NULL,NULL,'Mom''s house Naperville (closet)',NULL,'medium','Some volumes falling apart. Can''t throw away despite not rereading.',1,NULL);
+INSERT INTO possessions VALUES(7,1,'Harry Potter series',NULL,'All 7, original US editions. HP1 extremely worn (read 15+ times). Marginalia in pencil.',NULL,NULL,NULL,NULL,'Mom''s house Naperville (closet)',NULL,'medium','Connection to period when she read for joy, not escape.',1,NULL);
+INSERT INTO possessions VALUES(8,1,'Silent Spring book',NULL,'Rachel Carson. High school Environmental Science class (2009). Changed her life direction. Yellow highlighter throughout. Notes from 17-year-old Kate.',NULL,NULL,NULL,NULL,'Mom''s house Naperville (closet)',NULL,'high','Reminder of why she chose environmental engineering path.',1,NULL);
+INSERT INTO possessions VALUES(9,1,'Science fair trophies',NULL,'Three trophies from middle school. 2nd place (6th), 1st place (7th & 8th). Water quality focused.',NULL,NULL,NULL,NULL,'Mom''s house Naperville (childhood bedroom)',NULL,'medium','Evidence 13-year-old Kate cared about water quality. Tarnished gold plastic. Too childish to display as adult, too meaningful to discard.',1,NULL);
+INSERT INTO possessions VALUES(10,1,'MacBook Pro 2021',NULL,'Primary work laptop for dissertation writing',NULL,NULL,NULL,NULL,'Kate''s apartment desk',NULL,'low','With external monitor, wireless keyboard and mouse.',1,NULL);
+INSERT INTO possessions VALUES(11,1,'Great Lakes watershed map',NULL,'Framed. Only wall art in apartment besides running medals.',NULL,NULL,NULL,NULL,'Kate''s apartment living room wall',NULL,'medium','Evidence of professional identity in personal space.',1,NULL);
+INSERT INTO possessions VALUES(12,2,'Turing',NULL,'2014 Mini Cooper S',NULL,NULL,NULL,NULL,'Paul''s house',NULL,'high','Paul''s beloved Mini Cooper S named Turing.',1,NULL);
+INSERT INTO possessions VALUES(13,2,'Volvo',NULL,'2021 Mini Cooper S - Blue (black roof)',NULL,NULL,NULL,NULL,'Paul''s house',NULL,'medium','Paul''s second car, also a Mini Cooper S.',1,NULL);
+
+-- ============================================================================
+-- SCHEDULES (5 records)
+-- ============================================================================
+INSERT INTO schedules VALUES(1,2,'work','Mumbai Team Standup','["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]','07:00','09:00',NULL,NULL,'Home office','Early morning Mumbai team standup calls - STARTS AT 7 AM, NOT 9 AM','["US holidays", "personal time off"]',NULL,NULL,1,NULL);
+INSERT INTO schedules VALUES(2,2,'work','Regular Work Hours','["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]','09:00','17:00',NULL,NULL,'Home office','Regular work hours - meetings, management tasks, occasional coding (5% coding, 95% meetings)','["US holidays", "personal time off"]',NULL,NULL,1,NULL);
+INSERT INTO schedules VALUES(3,2,'personal','Morning Routine','["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]','05:40','06:30',NULL,NULL,'Home','Morning routine - wake, breakfast, coffee',NULL,NULL,NULL,1,NULL);
+INSERT INTO schedules VALUES(4,1,'weekly_commitment','Lab meeting','["thursday"]','14:00','16:00',NULL,NULL,'Tech Building, Northwestern','Data presentations, troubleshooting, paper planning. Kate prepares carefully. Presents every 3-4 weeks.',NULL,NULL,NULL,1,NULL);
+INSERT INTO schedules VALUES(5,1,'weekly_commitment','Thursday coffee social','["thursday"]','15:00','16:00',NULL,NULL,'Chen Lab kitchen','Informal gathering. Patricia brings good coffee. Kate attends ~80% of time, stays 30-40 minutes, doesn''t stay for extended socializing.',NULL,NULL,NULL,1,NULL);
+
+-- ============================================================================
+-- CHARACTER NEGATIVES (9 records)
+-- ============================================================================
+INSERT INTO character_negatives VALUES(1,1,'exercise','Does NOT go to gyms','absolute','Kate strongly prefers outdoor running and never uses gym facilities',NULL,NULL);
+INSERT INTO character_negatives VALUES(2,1,'exercise','Does NOT run on treadmills','absolute','Kate hates treadmills and finds them unbearable','["will use treadmill ONLY if temperature is below 15°F (-9°C)"]',NULL);
+INSERT INTO character_negatives VALUES(3,1,'food','Does NOT eat gluten','absolute','Kate has celiac disease and must avoid all gluten',NULL,NULL);
+INSERT INTO character_negatives VALUES(4,1,'food','Does NOT drink regular coffee after 2 PM','strong','Kate avoids caffeine in afternoon to protect sleep quality','["may have decaf after 2 PM", "exceptions for special occasions"]',NULL);
+INSERT INTO character_negatives VALUES(5,1,'exercise','Does NOT do yoga','preference','Kate tried yoga but finds it boring and prefers running',NULL,NULL);
+INSERT INTO character_negatives VALUES(6,1,'social','Does NOT attend student mixers at conferences','strong','Skipped AGU student mixer (too anxiety-inducing). Too overwhelming, too many people.',NULL,NULL);
+INSERT INTO character_negatives VALUES(7,1,'social','Does NOT stay at networking events longer than 45-60 minutes','strong','Maximum capacity. Leaves after reasonable effort. Did minimum necessary, not maximum beneficial.','If required for specific professional reason',NULL);
+INSERT INTO character_negatives VALUES(8,1,'social','Does NOT attend conference banquets or social dinners','strong','Skipped SETAC conference banquet, EPA mixer. Patricia frustrated but Kate "just can''t."','Required for committee or advisor',NULL);
+INSERT INTO character_negatives VALUES(9,1,'social','Does NOT pursue connections made at conferences','preference','Exchanged cards with 8-10 people, followed up with 4-5 briefly. Pattern of letting connections drift.','If professional collaboration clearly valuable',NULL);
+
+-- ============================================================================
+-- EDUCATION (8 records)
+-- ============================================================================
+INSERT INTO education VALUES(1,8,'University of Illinois Urbana-Champaign','B.A.','Advertising',2012,2016,1,0,'Dean''s List, cum laude',NULL,NULL,'Minor in Psychology. Ad Club vice president senior year. Study abroad London Spring 2015. Met Steve senior year.',NULL);
+INSERT INTO education VALUES(2,8,'Google Ads',NULL,'Google Ads certification',NULL,NULL,1,0,NULL,NULL,NULL,'Industry certification for advertising work.',NULL);
+INSERT INTO education VALUES(3,8,'Facebook Blueprint',NULL,'Facebook Blueprint certification',NULL,NULL,1,0,NULL,NULL,NULL,'Industry certification for advertising work.',NULL);
+INSERT INTO education VALUES(4,40,'Northwestern University','MBA','Business',2015,2017,1,0,'Kellogg School',NULL,NULL,'Met Alice while visiting UIUC friends January 2016.',NULL);
+INSERT INTO education VALUES(5,21,'Unknown','BSN','Nursing',NULL,NULL,1,0,NULL,NULL,NULL,'Works at Northwestern Memorial Hospital.',NULL);
+INSERT INTO education VALUES(6,24,'Loyola University Chicago','M.D.','Medicine',2023,2027,1,0,'Stritch School of Medicine',NULL,NULL,'Year 3 medical student. Sean and Maria''s son.',NULL);
+INSERT INTO education VALUES(7,30,'University of Chicago','MSW','Social Work',2022,2024,1,0,NULL,NULL,NULL,'Marie and James''s daughter. Starting social work career.',NULL);
+INSERT INTO education VALUES(8,29,'Unknown','B.S.','Computer Science',NULL,NULL,1,0,NULL,NULL,NULL,'Software engineer. Marie and James''s son. Engaged to Jennifer.',NULL);
+
+-- ============================================================================
+-- LAST RUN STATE (1 record)
+-- ============================================================================
+INSERT INTO last_run_state VALUES(1,NULL);
+
+COMMIT;
+
+-- Re-enable foreign key checks
+PRAGMA foreign_keys = ON;
+
+-- ============================================================================
+-- END OF DATA LOAD SCRIPT
+-- ============================================================================

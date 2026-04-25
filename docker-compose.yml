@@ -1,0 +1,174 @@
+# Docker Compose configuration for MorrisonClaudeMCP
+# This setup includes the MCP server with persistent database storage
+
+version: '3.8'
+
+services:
+  # =========================================================================
+  # Main MCP Server (Stdio Mode - for local Claude Desktop)
+  # =========================================================================
+  mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: morrison-mcp-server
+    image: morrison-mcp:latest
+
+    # Volume mounts for data persistence
+    volumes:
+      # Database persistence - mount local data directory
+      - ./data:/app/data
+      # Optional: Background source files for ingestion
+      - ./Background:/app/data/Background:ro
+
+    # Environment variables (stdio mode - no MCP_PORT set)
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - DatabasePath=/app/data/canonical_facts.db
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+      - Logging__LogLevel__Default=Information
+      - Logging__LogLevel__Microsoft=Warning
+
+    # Restart policy
+    restart: unless-stopped
+
+    # Resource limits (optional)
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "sqlite3", "/app/data/canonical_facts.db", "SELECT 1;"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+    # MCP servers use stdio - interactive mode required
+    stdin_open: true
+    tty: true
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # =========================================================================
+  # MCP Server (HTTP/SSE Mode - for remote access with authentication)
+  # =========================================================================
+  mcp-server-http:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: morrison-mcp-server-http
+    image: morrison-mcp:latest
+
+    # Volume mounts for data persistence
+    volumes:
+      - ./data:/app/data
+      - ./Background:/app/data/Background:ro
+
+    # Environment variables (HTTP mode with authentication)
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - DatabasePath=/app/data/canonical_facts.db
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+      - Logging__LogLevel__Default=Information
+      - Logging__LogLevel__Microsoft=Warning
+      # Enable HTTP/SSE mode
+      - MCP_PORT=8080
+      # IMPORTANT: Change this to a secure random value in production!
+      - MCP_API_KEY=your-secure-api-key-change-me
+
+    # Expose port for HTTP access
+    ports:
+      - "8080:8080"
+
+    # Restart policy
+    restart: unless-stopped
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+
+    # Health check (HTTP endpoint)
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # Only start with specific profile
+    profiles:
+      - http
+
+  # =========================================================================
+  # Ingestion Tool (Optional - Run once to populate database)
+  # =========================================================================
+  ingestion:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: morrison-mcp-ingestion
+
+    volumes:
+      - ./data:/app/data
+      - ./Background:/app/data/Background:ro
+
+    environment:
+      - DatabasePath=/app/data/canonical_facts.db
+      - SourceDirectory=/app/data/Background
+
+    # Override entrypoint to run ingestion tool
+    entrypoint: ["dotnet", "/app/ingestion/KateMorrisonMCP.Ingestion.dll"]
+
+    # Run once and exit
+    profiles:
+      - tools
+
+    depends_on:
+      mcp-server:
+        condition: service_healthy
+
+# =========================================================================
+# Volumes (optional named volumes instead of bind mounts)
+# =========================================================================
+volumes:
+  # Uncomment to use named volumes instead of bind mounts
+  # mcp-data:
+  #   driver: local
+  # mcp-background:
+  #   driver: local
+
+# =========================================================================
+# Networks (optional custom network)
+# =========================================================================
+networks:
+  default:
+    name: mcp-network
+    driver: bridge

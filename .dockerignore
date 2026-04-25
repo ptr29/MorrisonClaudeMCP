@@ -1,0 +1,119 @@
+# ============================================================================
+# .dockerignore - Excludes files from Docker build context
+# ============================================================================
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# Build outputs
+**/bin/
+**/obj/
+**/publish/
+**/out/
+
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test results
+**/TestResults/
+**/*.trx
+**/coverage/
+**/coveragereport/
+**/coverage.*.xml
+**/coverlet.runsettings
+
+# NuGet packages
+**/packages/
+*.nupkg
+*.snupkg
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+*.usertasks
+
+# Logs
+*.log
+logs/
+**/*.log
+
+# Temporary files
+**/tmp/
+**/temp/
+**/.tmp/
+**/.cache/
+
+# Documentation (unless needed)
+*.md
+!README.md
+docs/
+
+# Database backups and test databases (keep only canonical_facts.db)
+data/*backup*.db
+data/*test*.db
+data/*new*.db
+data/*rebuilt*.db
+data/*.db-shm
+data/*.db-wal
+data/*.db.broken
+
+# Exclude SQL dumps except essential ones
+data/*.sql
+!data/create_schema.sql
+!data/canonical_facts_data.sql
+
+# Node modules (if any)
+node_modules/
+npm-debug.log
+
+# Python cache (if any)
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+
+# OS-specific files
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.AppleDouble
+.LSOverride
+._*
+
+# Docker files (don't copy into container)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# CI/CD files
+.github/
+.gitlab-ci.yml
+.travis.yml
+azure-pipelines.yml
+
+# Coverage reports
+TestResults/
+*.coverage
+*.coveragexml
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+*.local.config
+
+# Keep only production database
+!data/canonical_facts.db
+
+# Exclude Background directory (file permission issues, database already populated)
+Background/
