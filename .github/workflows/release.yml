@@ -63,6 +63,7 @@ jobs:
           else
             COMMITS=$(git log --pretty=format:"- %s" --no-merges -10 | grep -v "^- chore: release" || true)
           fi
+          [ -z "$COMMITS" ] && COMMITS="No user-facing changes."
           TMPFILE=$(mktemp)
           echo "# Changelog" > "$TMPFILE"
           echo "" >> "$TMPFILE"
@@ -80,8 +81,8 @@ jobs:
           VERSION=$NEW_VERSION
           git add Directory.Build.props CHANGELOG.md
           git commit -m "chore: release v${VERSION}"
-          git tag "v${VERSION}"
           git pull --rebase
+          git tag "v${VERSION}"
           git push
           git push --tags
 

@@ -26,10 +26,13 @@ jobs:
     steps:
       - name: Resolve image tag
         id: resolve
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+          RELEASE_VERSION: ${{ needs.release.outputs.version }}
         run: |
-          TAG=$(echo "${{ inputs.tag }}" | xargs)
+          TAG=$(echo "$INPUT_TAG" | xargs)
           if [ -z "$TAG" ]; then
-            TAG="${{ needs.release.outputs.version }}"
+            TAG="$RELEASE_VERSION"
           fi
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
