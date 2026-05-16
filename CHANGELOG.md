@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.6
+
+- fix: omit enum field from tool schemas when no enum values are defined
+
+
 ## 1.0.5
 
 No user-facing changes.
