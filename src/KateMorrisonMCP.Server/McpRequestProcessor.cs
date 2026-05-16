@@ -118,12 +118,9 @@ public class McpRequestProcessor
                 type = t.InputSchema.Type,
                 properties = t.InputSchema.Properties.ToDictionary(
                     kvp => kvp.Key,
-                    kvp => new
-                    {
-                        type = kvp.Value.Type,
-                        description = kvp.Value.Description,
-                        @enum = kvp.Value.Enum
-                    }
+                    kvp => kvp.Value.Enum != null
+                        ? (object)new { type = kvp.Value.Type, description = kvp.Value.Description, @enum = kvp.Value.Enum }
+                        : new { type = kvp.Value.Type, description = kvp.Value.Description }
                 ),
                 required = t.InputSchema.Required
             }
